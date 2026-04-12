@@ -1,0 +1,24 @@
+#include <stdio.h>
+
+int main() {
+    int n;
+    printf("Enter number of elements : ");
+    scanf("%d", &n);
+
+    int a[n];
+    printf("Enter the array elements:\n");
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &a[i]);
+    }
+
+    int total = (n + 1) * (n + 2) / 2;
+    int actual_sum = 0;
+
+    for (int i = 0; i < n; i++) {
+        actual_sum += a[i];
+    }
+
+    printf("Missing number is: %d\n", total - actual_sum);
+    return 0;
+}
+
