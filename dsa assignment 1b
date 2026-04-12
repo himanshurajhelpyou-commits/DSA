@@ -1,0 +1,40 @@
+#include <stdio.h>
+
+int main() {
+    int n, i;
+    printf("Enter size: ");
+    scanf("%d", &n);
+
+    int a[n];
+    for (i = 0; i < n; i++) scanf("%d", &a[i]);
+
+    // Step 1: Find peak index
+    int peak = 0;
+    for (i = 1; i < n; i++) {
+        if (a[i] > a[peak]) peak = i;
+    }
+    printf("Peak: %d at index %d\n", a[peak], peak);
+
+    // Step 2: Reverse the right half (peak+1 to end)
+    // Now both halves are sorted in increasing order
+    int left = peak + 1, right = n - 1;
+    while (left < right) {
+        int temp = a[left]; a[left] = a[right]; a[right] = temp;
+        left++; right--;
+    }
+
+    // Step 3: Merge two sorted halves into result
+    int result[n];
+    int l = 0, r = peak + 1, k = 0;
+    while (l <= peak && r < n) {
+        if (a[l] < a[r]) result[k++] = a[l++];
+        else              result[k++] = a[r++];
+    }
+    while (l <= peak) result[k++] = a[l++];
+    while (r < n)     result[k++] = a[r++];
+
+    printf("Sorted: ");
+    for (i = 0; i < n; i++) printf("%d ", result[i]);
+
+    return 0;
+}
